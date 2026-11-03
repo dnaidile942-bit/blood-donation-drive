@@ -13,7 +13,11 @@ rules for drive -> donor must wait 90 days of donation
                    reject the invalid input (unknown blood group , underweight , past dates 
                    , double roll no )with clear error message .
                    
-We have to build backend with 9 endpoints , frontend and it should show API's error message.                    
+We have to build backend with 9 endpoints , frontend and it should show API's error message.   
+
+| day | amruta | supriya | naidile |
+-----------------------------------
+| 1(Backend)|E4 , E5 , E6 |E1 , E2 , E3 |E7 ,E8, E9|
 
 
 
