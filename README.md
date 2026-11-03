@@ -24,9 +24,9 @@ Status: ✅ done · 🟡 in progress · ⬜ not started
 
 | # | What it does | Method + path | Built | Rules checked in /docs | Connected to React | Who |
 |---|---|---|---|---|---|---|
-| E1 | Get all donors, can be filter by blood group | |✅  | ⬜ | ⬜ |  |
-| E2 | Get one donor by roll number, with appointments | | ✅ | ⬜ | ⬜ |  |
-| E3 | Register a donor:roll no,name,BG and weight |  | ✅ | ⬜ | ⬜ |  |
+| E1 | Get all donors, can be filter by blood group |GET /donors |✅  | ⬜ | ⬜ |  |
+| E2 | Get one donor by roll number, with appointments |GET /donor/{roll_no} | ✅ | ⬜ | ⬜ |  |
+| E3 | Register a donor:roll no,name,BG and weight |POST /donors | ✅ | ⬜ | ⬜ |  |
 | E4 | Book an appointment:roll no,drive date and slot.it starts as booked |  |⬜ |⬜| |  |   
 | E5 | Cancel an appointment |  | ⬜ | ⬜ | ⬜ |  |
 | E6 | Mark donated or no_show | | ⬜ | ⬜ | ⬜ |  |
