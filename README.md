@@ -15,7 +15,7 @@ Update your own row at every check-in.
 |---|---|---|---|---|---|
 | Day 1 | Supriya |  |  |  |  |
 | Day 1 | Naidile |  |  |  |  |
-| Day 1 | Amruta | create databse and table | yes  | Endpoints | no |
+| Day 1 | Amruta | create database and table and seed_data | yes  | Endpoints | no |
 
 ## 2. Endpoint tracker
 
