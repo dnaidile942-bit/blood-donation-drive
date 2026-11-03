@@ -13,7 +13,7 @@ Update your own row at every check-in.
 
 | Day | Partner | What will you do? | Completed? | What are you going to work on next? | Stuck on? |
 |---|---|---|---|---|---|
-| Day 1 | Supriya |  |  |  |  |
+| Day 1 | Supriya |E1,E2 |Yes  | E3 | No |
 | Day 1 | Naidile |  |  |  |  |
 | Day 1 | Amruta | create database and table and seed_data | yes  | Endpoints | no |
 
@@ -24,9 +24,9 @@ Status: ✅ done · 🟡 in progress · ⬜ not started
 
 | # | What it does | Method + path | Built | Rules checked in /docs | Connected to React | Who |
 |---|---|---|---|---|---|---|
-| E1 | Get all donors, can be filter by blood group | | ⬜ | ⬜ | ⬜ |  |
-| E2 | Get one donor by roll number, with appointments | | ⬜ | ⬜ | ⬜ |  |
-| E3 | Register a donor:roll no,name,BG and weight |  | ⬜ | ⬜ | ⬜ |  |
+| E1 | Get all donors, can be filter by blood group | |✅  | ⬜ | ⬜ |  |
+| E2 | Get one donor by roll number, with appointments | | ✅ | ⬜ | ⬜ |  |
+| E3 | Register a donor:roll no,name,BG and weight |  | ✅ | ⬜ | ⬜ |  |
 | E4 | Book an appointment:roll no,drive date and slot.it starts as booked |  |⬜ |⬜| |  |   
 | E5 | Cancel an appointment |  | ⬜ | ⬜ | ⬜ |  |
 | E6 | Mark donated or no_show | | ⬜ | ⬜ | ⬜ |  |
