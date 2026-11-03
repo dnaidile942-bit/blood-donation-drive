@@ -40,7 +40,7 @@ Base.metadata.create_all(engine)
 
 def seed_data():
     session = Session(engine)
-    today = date.today()
+    
 
     if session.query(Donor).count() == 0:
         donor_records = [
@@ -62,20 +62,20 @@ def seed_data():
 
     if session.query(Appointment).count() == 0:
         appointment_records = [
-            # past donations (match last_donated_on above)
-            Appointment(id=1,  donor_id=2,  drive_date=None,  slot="morning",   status="donated",   booked_on=today - timedelta(days=40)),
-            Appointment(id=2,  donor_id=6,  drive_date=None,  slot="afternoon", status="donated",   booked_on=today - timedelta(days=55)),
-            Appointment(id=3,  donor_id=10, drive_date=None,  slot="morning",   status="donated",   booked_on=today - timedelta(days=70)),
-            Appointment(id=4,  donor_id=5,  drive_date=None, slot="morning",   status="donated",   booked_on=today - timedelta(days=130)),
-            Appointment(id=5,  donor_id=8,  drive_date=None, slot="afternoon", status="donated",   booked_on=today - timedelta(days=210)),
-            # past no-show
-            Appointment(id=6,  donor_id=11, drive_date=None,  slot="afternoon", status="no_show",   booked_on=today - timedelta(days=40)),
-            # upcoming bookings
-            Appointment(id=7,  donor_id=1,  drive_date=None,   slot="morning",   status="booked",    booked_on=today),
-            Appointment(id=8,  donor_id=3,  drive_date=None,   slot="morning",   status="booked",    booked_on=today),
-            Appointment(id=9,  donor_id=4,  drive_date=None,   slot="afternoon", status="booked",    booked_on=today),
-            # cancelled
-            Appointment(id=10, donor_id=9,  drive_date=None,  slot="morning",   status="cancelled", booked_on=today),
+            
+            Appointment(id=1,  donor_id=2,  drive_date=None,  slot="morning",   status="donated",   booked_on=),
+            Appointment(id=2,  donor_id=6,  drive_date=None,  slot="afternoon", status="donated",   booked_on=),
+            Appointment(id=3,  donor_id=10, drive_date=None,  slot="morning",   status="donated",   booked_on=),
+            Appointment(id=4,  donor_id=5,  drive_date=None, slot="morning",   status="donated",   booked_on=),
+            Appointment(id=5,  donor_id=8,  drive_date=None, slot="afternoon", status="donated",   booked_on=),
+            
+            Appointment(id=6,  donor_id=11, drive_date=None,  slot="afternoon", status="no_show",   booked_on=),
+            
+            Appointment(id=7,  donor_id=1,  drive_date=None,   slot="morning",   status="booked",    booked_on=),
+            Appointment(id=8,  donor_id=3,  drive_date=None,   slot="morning",   status="booked",    booked_on=),
+            Appointment(id=9,  donor_id=4,  drive_date=None,   slot="afternoon", status="booked",    booked_on=),
+            
+            Appointment(id=10, donor_id=9,  drive_date=None,  slot="morning",   status="cancelled", booked_on=),
         ]
         session.add_all(appointment_records)
         session.commit()
