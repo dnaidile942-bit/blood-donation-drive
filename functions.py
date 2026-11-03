@@ -27,6 +27,8 @@ def get_donor(roll_number):
         "weight":donor.weight,
         "last_donated_on":donor.last_donated_on,
     }  
+    session.close()
+    return response
 
 def add_donor(roll_no,name,blood_group,weight,last_donated_on):
     session = Session(engine)
