@@ -26,3 +26,8 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+.venv/
+node_modules/
+__pycache__/
+ blooddrive.db
