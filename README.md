@@ -79,9 +79,9 @@ Fill this in by the end of Day 2. Someone who has never seen your code should be
 
 ```bash
 cd backend
-pip install fastapi uvicorn
+pip install -r requirements.txt
 uvicorn main:app --reload --port 8001
-# API docs: http://127.0.0.1:8001/docs
+
 ```
 
 **Frontend**
@@ -90,11 +90,9 @@ uvicorn main:app --reload --port 8001
 cd frontend
 npm install
 npm run dev
-# the API address is set in one place: const API_URL = "http://127.0.0.1:8001";
 ```
 
 ## 7. Proof of work
 
 Save a screenshot of `/docs` or your app as `screenshot.png` in this branch. It shows here:
 
-![Our app](screenshot.png)
