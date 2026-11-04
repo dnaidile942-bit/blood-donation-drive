@@ -51,17 +51,3 @@ def get_eligible_donors(blood_group):
 
 
 
-
-@app.get("/appointments")                                 
-def get_appointments(drive_date: str):
-    check_date(drive_date)
-    return functions.get_appointments_by_date(drive_date)
-
-@app.get("/units")                                         
-def get_units():
-    return functions.get_units()
-
-@app.get("/donors/eligible")                              
-def get_eligible(blood_group)                       
-    check_group(blood_group)
-    return functions.get_eligible_donors(blood_group)
