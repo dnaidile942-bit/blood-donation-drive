@@ -22,17 +22,17 @@ Update your own row at every check-in.
 Fill in the method and path from your PRD's endpoint table (suggested answers are pre-filled; change them if your design differs).
 Status: ✅ done · 🟡 in progress · ⬜ not started
 
-| # | What it does | Method + path | Built | Rules checked in /docs | Connected to React | Who |
-|---|---|---|---|---|---|---|
-| E1 | Get all donors, can be filter by blood group |GET /donors |✅  | ⬜ | ⬜ |  |
-| E2 | Get one donor by roll number, with appointments |GET /donor/{roll_no} | ✅ | ⬜ | ⬜ |  |
-| E3 | Register a donor:roll no,name,BG and weight |POST /donors | ✅ | ⬜ | ⬜ |  |
-| E4 | Book an appointment:roll no,drive date and slot.it starts as booked |  |⬜ |⬜| |  |   
-| E5 | Cancel an appointment |  | ⬜ | ⬜ | ⬜ |  |
-| E6 | Mark donated or no_show | | ⬜ | ⬜ | ⬜ |  |
-| E7 | Appointments for a date, morning first | | ⬜ | ⬜ | ⬜ |  |
-| E8 | Units collected per blood group | | ⬜ | ⬜ | ⬜ |  |
-| E9 | Donors of a blood group who can donate now |  | ⬜ | ⬜ | ⬜ |  |
+| # | What it does | Method + path | request body | Success code | Error code |
+|---|---|---|---|---|---|
+| E1 | Get all donors, can be filter by blood group |GET /donors |  |  |  |
+| E2 | Get one donor by roll number, with appointments |GET /donor/{roll_no} |  | |  |
+| E3 | Register a donor:roll no,name,BG and weight |POST /donors |  |  |  |  |
+| E4 | Book an appointment:roll no,drive date and slot.it starts as booked |  | | | | 
+| E5 | Cancel an appointment |  |  |  |  |
+| E6 | Mark donated or no_show | |  |  |  |
+| E7 | Appointments for a date, morning first | |  |  |  |
+| E8 | Units collected per blood group | |  |  |  |
+| E9 | Donors of a blood group who can donate now |  |  |  |  |
 
 ### Rules checklist (section 4 of the PRD)
 
