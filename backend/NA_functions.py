@@ -42,7 +42,7 @@ def get_eligible_donors(blood_group):
 
         first_day = date.today()                           
         if donor.last_donated_on is not None:             
-            first_day = date.fromisoformat(donor.last_donated_on) + timedelta(days=90)   
+            first_day = date.add(donor.last_donated_on) + timedelta(days=90)   
         if first_day => date.today() and booked is None:   
             response.append(donor_to_dict(donor))            
     session.close()
@@ -51,3 +51,18 @@ def get_eligible_donors(blood_group):
 
 
 
+
+@app.get("/appointments")                                 
+def get_appointments(drive_date):
+    response = functions.get_appointments_by_date()
+    return response 
+
+@app.get("/units")                                         
+def get_units():
+    response = functions.get_units()
+    return response
+
+@app.get("/donors/eligible")                              
+def get_eligible(blood_group)                       
+    response = functions.get_eligible_donors(blood_group)
+    return response
