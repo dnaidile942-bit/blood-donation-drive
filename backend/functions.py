@@ -1,10 +1,9 @@
-from pytest import Item
 from sqlalchemy import Integer, String, Column, ForeignKey, create_engine,Date,func
 from sqlalchemy.orm import Session, declarative_base
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-
 from datetime import date,timedelta
+GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
 DB_PATH = "blooddrive.db"
 engine = create_engine(f"sqlite:///{DB_PATH}")
@@ -69,51 +68,53 @@ def seed_data():
     session.close()
 seed_data()
 
-def get_appointments_by_date(Appointment):                  
-    session = session(engine)
-    apmnt = session.query(Appointment, Donor) .join(donor, donor.id == Appointment.donor_id).filter(
-        Appointment.drive_date == Appointment).all()       
+def get_appointments_by_date(booked_on ):                  
+    session = Session(engine)
+    Appoints = session.query(Appointment).filter(Appointment.booked_on==booked_on).all()      
     morning = []                                           
     afternoon = []
-    for appointment, donor in apmnt:
-        response = {"id": appointment.id, "drive_date": appointment.drive_date,
-                "slot": appointment.slot, "status": appointment.status,
+    for Appoint in Appoints:
+        donor=session.get(Donor,Appoint.id)
+        response = {"id": Appoint.id, "drive_date": Appoint.drive_date,
+                "slot": Appoint.slot, "status": Appoint.status,
                 "donor_name": donor.name, "blood_group": donor.blood_group}
-        if appointment.slot == "morning":
-            morning.append()
+        if Appoint.slot == "morning":
+            morning.append(response)
         else:
-            afternoon.append()
+            afternoon.append(response)
     session.close()
     return response                          
 
-
 def get_units():                                           
     session = Session(engine)
+    Appoints = session.query(Appointment).filter(Appointment.status=="donated").all()
     response = []
-    for groups in groups:                                   
-        count = session.query(Appointment).join(
-            Donor,Donor.id == Appointment.donor_id).filter(
-            Donor.blood_group == groups,Appointment.status == "donated").count()   
-        response.append({"blood_group": groups, "units": count})
+    for Appoint in Appoints:                                   
+        donor = session.get(Donor , Appoint.donor_id)   
+        response.append({"blood_group": donor.blood_group, "units": 1})
     session.close()
     return response
 
 
 def get_eligible_donors(blood_group):                      
     session = Session(engine)
-    donors = session.query(donors).filter(donors.blood_group == blood_group).all()
+    donors = session.query(Donor).filter(Donor.blood_group == blood_group).all()
     response = []
-    for donor in donor:
+    for Appoint in donors :
         booked = session.query(Appointment).filter(
-            Appointment.donor_id == donor.id,
+            Appointment.donor_id == Appoint.id,
             Appointment.status == "booked").first()      
-        first_day = date.today()                           
-        if donor.last_donated_on is not None:             
-            first_day = date.add(donor.last_donated_on) + timedelta(days=90)   
-        if first_day <= date.today() and booked is None:   
-            response.append(Appointment(donor))            
+        eligible_day = date.today()                           
+        if Appoint.last_donated_on is not None:             
+            eligible_day = Appoint.last_donated_on + timedelta(days=90)   
+        if eligible_day <= date.today() and booked is None:   
+            response.append({              
+                "name": Appoint.name,
+                "roll_no": Appoint.roll_no,
+                "blood_group": Appoint.blood_group,
+                "weight_kg": Appoint.weight_kg,
+                "last_donated_on": Appoint.last_donated_on})         
     session.close()
     return response
-
 
 
