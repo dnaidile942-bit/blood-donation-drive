@@ -17,6 +17,12 @@ Update your own row at every check-in.
 | Day 1 | Naidile |  |  |  |  |
 | Day 1 | Amruta | create database and table and seed_data | yes  | Endpoints | no |
 
+| Day | Partner | What will you do? | Completed? | What are you going to work on next? | Stuck on? |
+|---|---|---|---|---|---|
+| Day 2 | Supriya | |  |  |  |
+| Day 2 | Naidile |  |  |  |  |
+| Day 2 | Amruta | |  |  |  |
+
 ## 2. Endpoint tracker
 
 Fill in the method and path from your PRD's endpoint table (suggested answers are pre-filled; change them if your design differs).
