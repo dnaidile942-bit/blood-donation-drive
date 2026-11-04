@@ -19,9 +19,9 @@ Update your own row at every check-in.
 
 | Day | Partner | What will you do? | Completed? | What are you going to work on next? | Stuck on? |
 |---|---|---|---|---|---|
-| Day 2 | Supriya | |  |  |  |
+| Day 2 | Supriya | testing endpoints and app.jsx| yes |Donor component  | no |
 | Day 2 | Naidile | endpoints | yes | forntend | yes |
-| Day 2 | Amruta |Endpoints and app.jsx | yes | frontend componets | no |
+| Day 2 | Amruta |Endpoints and app.jsx | yes | frontend componet | no |
 
 ## 2. Endpoint tracker
 
@@ -33,9 +33,9 @@ Status: ✅ done · 🟡 in progress · ⬜ not started
 | E1 | Get all donors, can be filter by blood group |GET /donors |  |  |  |
 | E2 | Get one donor by roll number, with appointments |GET /donor/{roll_no} |  | |  |
 | E3 | Register a donor:roll no,name,BG and weight |POST /donors |  |  |  |  |
-| E4 | Book an appointment:roll no,drive date and slot.it starts as booked |  | | | | 
-| E5 | Cancel an appointment |  |  |  |  |
-| E6 | Mark donated or no_show | |  |  |  |
+| E4 | Book an appointment:roll no,drive date and slot.it starts as booked | POST/appoinments | | | | 
+| E5 | Cancel an appointment | PATCH/appointments/id/cancel |  |  |  |
+| E6 | Mark donated or no_show |PATCH/appointments/id/status |  |  |  |
 | E7 | Appointments for a date, morning first | |  |  |  |
 | E8 | Units collected per blood group | |  |  |  |
 | E9 | Donors of a blood group who can donate now |  |  |  |  |
