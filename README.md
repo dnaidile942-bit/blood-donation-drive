@@ -36,9 +36,9 @@ Status: ✅ done · 🟡 in progress · ⬜ not started
 | E4 | Book an appointment:roll no,drive date and slot.it starts as booked | POST/appoinments | | | | 
 | E5 | Cancel an appointment | PATCH/appointments/id/cancel |  |  |  |
 | E6 | Mark donated or no_show |PATCH/appointments/id/status |  |  |  |
-| E7 | Appointments for a date, morning first | |  |  |  |
-| E8 | Units collected per blood group | |  |  |  |
-| E9 | Donors of a blood group who can donate now |  |  |  |  |
+| E7 | Appointments for a date, morning first |GET/appointments |  |  |  |
+| E8 | Units collected per blood group |GET/stats{units} |  |  |  |
+| E9 | Donors of a blood group who can donate now |GET/donors{eligible}  |  |  |  |
 
 ### Rules checklist (section 4 of the PRD)
 
