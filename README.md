@@ -31,7 +31,7 @@ Status: ✅ done · 🟡 in progress · ⬜ not started
 | # | What it does | Method + path | request body | Success code | Error code |
 |---|---|---|---|---|---|
 | E1 | Get all donors, can be filter by blood group |GET /donors |  |  |  |
-| E2 | Get one donor by roll number, with appointments |GET /donor/{roll_no} |  | |  |
+| E2 | Get one donor by roll number, with appointments |GET /donors/{roll_no} |  | |  |
 | E3 | Register a donor:roll no,name,BG and weight |POST /donors |  |  |  |  |
 | E4 | Book an appointment:roll no,drive date and slot.it starts as booked | POST/appoinments | | | | 
 | E5 | Cancel an appointment | PATCH/appointments/id/cancel |  |  |  |
