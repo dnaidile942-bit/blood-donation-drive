@@ -68,9 +68,11 @@ def seed_data():
     session.close()
 seed_data()
 
-def get_appointments_by_date(booked_on ):                  
+def get_appointments_by_date(drive_date):   
+    if len(drive_date) != 10 or drive_date[4] != "-" or drive_date[7] != "-":
+            raise HTTPException(status_code=422, detail="Date must be written as YYYY-MM-DD")               
     session = Session(engine)
-    Appoints = session.query(Appointment).filter(Appointment.booked_on==booked_on).all()      
+    Appoints = session.query(Appointment).filter(Appointment.drive_date==drive_date).all()      
     morning = []                                           
     afternoon = []
     for Appoint in Appoints:
@@ -96,7 +98,10 @@ def get_units():
     return response
 
 
-def get_eligible_donors(blood_group):                      
+def get_eligible_donors(blood_group): 
+    blood_group=blood_group.upper() 
+    if blood_group not in GROUPS:
+            raise HTTPException(status_code=422 , detail="Blood group must be A+ , B+ ,O+ ,AB+ ,A- ,B- ,O- ,AB-")                    
     session = Session(engine)
     donors = session.query(Donor).filter(Donor.blood_group == blood_group).all()
     response = []
