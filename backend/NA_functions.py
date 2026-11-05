@@ -2,7 +2,7 @@ from sqlalchemy import Integer, String, Column, ForeignKey, create_engine,Date,f
 from sqlalchemy.orm import Session, declarative_base
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from datetime import date,timedelta
+from datetime import date,timedelta,datetime
 GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
 DB_PATH = "blooddrive.db"
@@ -11,7 +11,6 @@ Base = declarative_base()
 
 class Donor(Base):
     __tablename__="donors"
-
     id = Column(Integer,primary_key = True)
     name = Column(String)
     roll_no = Column(String,unique = True)
@@ -68,35 +67,45 @@ def seed_data():
     session.close()
 seed_data()
 
-def get_appointments_by_date(drive_date):   
+def get_appointments_by_date(drive_date):
     if len(drive_date) != 10 or drive_date[4] != "-" or drive_date[7] != "-":
-            raise HTTPException(status_code=422, detail="Date must be written as YYYY-MM-DD")               
+            raise HTTPException(status_code=422, detail="Date must be written as YYYY-MM-DD")
+    drive_date = datetime.strptime(drive_date, "%Y-%m-%d").date()
     session = Session(engine)
-    Appoints = session.query(Appointment).filter(Appointment.drive_date==drive_date).all()      
-    morning = []                                           
-    afternoon = []
-    for Appoint in Appoints:
-        donor=session.get(Donor,Appoint.id)
-        response = {"id": Appoint.id, "drive_date": Appoint.drive_date,
-                "slot": Appoint.slot, "status": Appoint.status,
-                "donor_name": donor.name, "blood_group": donor.blood_group}
-        if Appoint.slot == "morning":
-            morning.append(response)
-        else:
-            afternoon.append(response)
-    session.close()
-    return response                          
-
-def get_units():                                           
-    session = Session(engine)
-    Appoints = session.query(Appointment).filter(Appointment.status=="donated").all()
     response = []
-    for Appoint in Appoints:                                   
-        donor = session.get(Donor , Appoint.donor_id)   
-        response.append({"blood_group": donor.blood_group, "units": 1})
+
+    for slot in ["morning", "afternoon"]:
+        apointsday = session.query(Appointment).filter(
+            Appointment.drive_date == drive_date,
+            Appointment.slot == slot
+        ).all()
+
+        for apoint in apointsday:
+            donor = session.get(Donor, apoint.donor_id)
+            response.append({
+                "id": apoint.id,
+                "donor_id": donor.id,
+                "name": donor.name,
+                "blood_group": donor.blood_group,
+                "drive_date": apoint.drive_date,
+                "slot": apoint.slot,
+                "status": apoint.status,
+            })
+
     session.close()
     return response
 
+def get_units():                                           
+    session = Session(engine)
+    unitscounts = {}
+    for g in GROUPS:
+        unitscounts[g] = 0
+    donated = session.query(Appointment).filter(Appointment.status=="donated").all()
+    for donate in donated:                                   
+        donor = session.get(Donor , donate.donor_id)   
+        unitscounts[donor.blood_group] +=1
+    session.close()
+    return unitscounts
 
 def get_eligible_donors(blood_group): 
     blood_group=blood_group.upper() 
@@ -105,21 +114,19 @@ def get_eligible_donors(blood_group):
     session = Session(engine)
     donors = session.query(Donor).filter(Donor.blood_group == blood_group).all()
     response = []
-    for Appoint in donors :
+    for donor in donors :
         booked = session.query(Appointment).filter(
-            Appointment.donor_id == Appoint.id,
+            Appointment.donor_id == donor.id,
             Appointment.status == "booked").first()      
-        eligible_day = date.today()                           
-        if Appoint.last_donated_on is not None:             
-            eligible_day = Appoint.last_donated_on + timedelta(days=90)   
-        if eligible_day <= date.today() and booked is None:   
+        eligible_day = datetime.now().date()                         
+        if donor.last_donated_on is not None:             
+            eligible_day = donor.last_donated_on + timedelta(days=90)   
+        if eligible_day <= datetime.now().date() and booked is None:   
             response.append({              
-                "name": Appoint.name,
-                "roll_no": Appoint.roll_no,
-                "blood_group": Appoint.blood_group,
-                "weight_kg": Appoint.weight_kg,
-                "last_donated_on": Appoint.last_donated_on})         
+                "name": donor.name,
+                "roll_no": donor.roll_no,
+                "blood_group": donor.blood_group,
+                "weight_kg": donor.weight_kg,
+                "last_donated_on": donor.last_donated_on})         
     session.close()
     return response
-
-
