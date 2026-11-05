@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from datetime import date,datetime,timedelta
 
+GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
+
 DB_PATH = "blooddrive.db"
 
 engine = create_engine(f"sqlite:///{DB_PATH}")
@@ -70,8 +72,8 @@ def seed_data():
             Appointment(id=3,  donor_id=10, drive_date=today - timedelta(days=60),  slot="morning",   status="donated", booked_on=today - timedelta(days=70)),
             Appointment(id=4,  donor_id=5,  drive_date=today - timedelta(days=120), slot="morning",   status="donated", booked_on=today - timedelta(days=130)),
             Appointment(id=5,  donor_id=8,  drive_date=today - timedelta(days=200), slot="afternoon", status="donated", booked_on=today - timedelta(days=210)),
-            Appointment(id=6,  donor_id=11, drive_date=today - timedelta(days=30),  slot="afternoon", status="no_show", booked_on=today - timedelta(days=40)),
-            Appointment(id=7,  donor_id=1,  drive_date=today,                       slot="morning",   status="booked",  booked_on=today - timedelta(days=3)),
+            Appointment(id=6,  donor_id=11, drive_date=today - timedelta(days=30),  slot="afternoon", status="booked", booked_on=today),
+            Appointment(id=7,  donor_id=1,  drive_date=today,                       slot="morning",   status="donated",  booked_on=today - timedelta(days=3)),
             Appointment(id=8,  donor_id=3,  drive_date=today + timedelta(days=7),   slot="morning",   status="booked",  booked_on=today),
             Appointment(id=9,  donor_id=4,  drive_date=today + timedelta(days=7),   slot="afternoon", status="booked",  booked_on=today),
             Appointment(id=10, donor_id=9,  drive_date=today + timedelta(days=14),  slot="morning",   status="cancelled", booked_on=today),
@@ -85,64 +87,112 @@ def seed_data():
 seed_data()
 
 
-def get_all_donors(blood_group=None):
-    session = Session(engine)
+# def get_all_donors(blood_group=None):
+#     session = Session(engine)
+#     if blood_group is not None:
+#             blood_group = blood_group.upper()
+#             if blood_group not in ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]:
+#                 session.close()
+#                 raise HTTPException(status_code=422, detail="Invalid blood group.")
+
+#     if blood_group is None:
+#         donors = session.query(Donor).all()
+#     else:
+#         blood_group = blood_group.upper()
+#         donors = session.query(Donor).filter(Donor.blood_group == blood_group).all()
+
+#     response = []
+#     for donor in donors:
+#         apoint = session.query(Appointment).filter(Appointment.donor_id == donor.id).first()
+#         if apoint is None:
+#             status = None
+#             drive_date = None
+#         else:
+#             status = apoint.status
+#             drive_date = apoint.drive_date
+#         temp_donor = {
+#             "id": donor.id,
+#             "roll_no": donor.roll_no,
+#             "name": donor.name,
+#             "blood_group": donor.blood_group,
+#             "weight_kg": donor.weight_kg,
+#             "last_donated_on": donor.last_donated_on,
+#             "status":status,
+#             "drive_date":drive_date
+#         }
+#         response.append(temp_donor)
+
+#     session.close()
+#     return response
+
+
+# def get_donor(roll_no):
     
-    if blood_group is None:
-        donors = session.query(Donor).all()
-    else:    
-        blood_group = blood_group.upper()
-        donors = session.query(Donor).filter(Donor.blood_group == blood_group).all()
-        
+#     session = Session(engine)
 
-    response = []
-    for donor in donors:
-        apoint = session.get(Appointment, donor.id)
-        
-        temp_donor = {
-            "id":donor.id,
-            "roll_no":donor.roll_no,
-            "name":donor.name,
-            "blood_group":donor.blood_group,
-            "weight_kg":donor.weight_kg,
-            "last_donated_on":donor.last_donated_on,
-            "status":apoint.status,
+#     donor = session.query(Donor).filter(Donor.roll_no == roll_no).first()
+#     if donor is None:
+#         session.close()
+#         raise HTTPException(status_code=404, detail="Donor not found")
 
-        }
-        response.append(temp_donor)
+#     appoints = session.query(Appointment).filter(Appointment.donor_id == donor.id).all()
+#     appoint_list = []
+#     for apoint in appoints:
+#         appoint_list.append({
+#             "id": apoint.id,
+#             "drive_date": apoint.drive_date,
+#             "slot": apoint.slot,
+#             "status": apoint.status,
+#             "booked_on": apoint.booked_on,
+#         })
 
-    session.close()
-    return response
+#     response = {
+#         "id": donor.id,
+#         "roll_no": donor.roll_no,
+#         "name": donor.name,
+#         "blood_group": donor.blood_group,
+#         "weight_kg": donor.weight_kg,
+#         "last_donated_on": donor.last_donated_on,
+#         "appointments": appoint_list,
+#     }
 
-def add_donor(roll_no, name, blood_group, weight_kg):
-    roll_no = roll_no.upper()
-    blood_group = blood_group.upper()
+#     session.close()
+#     return response
+
+
+# def add_donor(roll_no, name, blood_group, weight_kg):
+#     roll_no = roll_no.upper()
+#     blood_group = blood_group.upper()
+#     if roll_no == "":
+#         raise HTTPException(status_code=422, detail="Roll number is required.")
     
-    session = Session(engine)
-    existing = session.query(Donor).filter(Donor.roll_no == roll_no).first()
-    if existing:
-        session.close()
-        raise HTTPException(status_code=400, detail="Roll number already registered.")
-    if weight_kg < 50 or weight_kg > 200:
-        session.close()
-        raise HTTPException(status_code=422, detail="Weight must be between 50kg and 200kg.")
+#     if blood_group not in ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]:
+#         raise HTTPException(status_code=422, detail="Invalid blood group.")
+#     if weight_kg < 50 or weight_kg > 200:
+#         raise HTTPException(status_code=422, detail="Weight must between  50kg to 200kg.")
 
-    donor = Donor(roll_no=roll_no, name=name, blood_group=blood_group, weight_kg=weight_kg)
-    session.add(donor)
-    session.commit()
-    session.refresh(donor)
+#     session = Session(engine)
 
-    response = {
-        "id": donor.id,
-        "roll_no": donor.roll_no,
-        "name": donor.name,
-        "blood_group": donor.blood_group,
-        "weight_kg": donor.weight_kg,
-        "last_donated_on": donor.last_donated_on,
-    }
+#     donorexi = session.query(Donor).filter(Donor.roll_no == roll_no).first()
+#     if donorexi is not None:
+#         session.close()
+#         raise HTTPException(status_code=400, detail="Roll number already registered.")
 
-    session.close()
-    return response
+#     donor = Donor(roll_no=roll_no, name=name, blood_group=blood_group, weight_kg=weight_kg)
+#     session.add(donor)
+#     session.commit()
+    
+#     response = {
+#         "id": donor.id,
+#         "roll_no": donor.roll_no,
+#         "name": donor.name,
+#         "blood_group": donor.blood_group,
+#         "weight_kg": donor.weight_kg,
+#         "last_donated_on": donor.last_donated_on,
+#     }
+
+#     session.close()
+#     return response
 
 
 def book_appoint(roll_no,drive_date,slot):
@@ -176,7 +226,7 @@ def book_appoint(roll_no,drive_date,slot):
         raise HTTPException(status_code = 400,detail ="You alreday have a booked appoinmtent")
 
     count = session.query(Appointment).filter(Appointment.drive_date == drive_date,Appointment.slot == slot,Appointment.status=="booked").count()
-    if count > 10:
+    if count >= 10:
         session.close()
         raise HTTPException(status_code = 400,detail="Slot Full")
 
@@ -247,7 +297,7 @@ def mark_appoint(id,status):
 
     if apoint.status != "booked":
         session.close()
-        raise HTTPException(status_code = 400,detail="Appointment cannot be marked")
+        raise HTTPException(status_code = 400,detail=f"Appointment cannot be marked status {apoint.status}")
 
     
     if apoint.drive_date > datetime.now().date():
@@ -272,3 +322,71 @@ def mark_appoint(id,status):
     }
     session.close()
     return responce
+
+# def get_appointments_by_date(drive_date):
+#     if len(drive_date) != 10 or drive_date[4] != "-" or drive_date[7] != "-":
+#             raise HTTPException(status_code=422, detail="Date must be written as YYYY-MM-DD")
+#     drive_date = datetime.strptime(drive_date, "%Y-%m-%d").date()
+
+#     session = Session(engine)
+#     response = []
+
+    
+#     for slot in ["morning", "afternoon"]:
+#         apointsday = session.query(Appointment).filter(
+#             Appointment.drive_date == drive_date,
+#             Appointment.slot == slot
+#         ).all()
+
+#         for apoint in apointsday:
+#             donor = session.get(Donor, apoint.donor_id)
+#             response.append({
+#                 "id": apoint.id,
+#                 "donor_id": donor.id,
+#                 "name": donor.name,
+#                 "blood_group": donor.blood_group,
+#                 "drive_date": apoint.drive_date,
+#                 "slot": apoint.slot,
+#                 "status": apoint.status,
+#             })
+
+#     session.close()
+#     return response
+
+# def get_units():                                           
+#     session = Session(engine)
+#     unitscounts = {}
+#     for g in GROUPS:
+#         unitscounts[g] = 0
+#     donated = session.query(Appointment).filter(Appointment.status=="donated").all()
+#     response = []
+#     for Appoint in donated:                                   
+#         donor = session.get(Donor , Appoint.donor_id)   
+#         unitscounts[donor.blood_group] +=1
+
+#     session.close()
+#     return unitscounts
+
+# def get_eligible_donors(blood_group): 
+#     blood_group=blood_group.upper() 
+#     if blood_group not in GROUPS:
+#             raise HTTPException(status_code=422 , detail="Blood group must be A+ , B+ ,O+ ,AB+ ,A- ,B- ,O- ,AB-")                    
+#     session = Session(engine)
+#     donors = session.query(Donor).filter(Donor.blood_group == blood_group).all()
+#     response = []
+#     for Appoint in donors :
+#         booked = session.query(Appointment).filter(
+#             Appointment.donor_id == Appoint.id,
+#             Appointment.status == "booked").first()      
+#         eligible_day = date.today()                           
+#         if Appoint.last_donated_on is not None:             
+#             eligible_day = Appoint.last_donated_on + timedelta(days=90)   
+#         if eligible_day <= date.today() and booked is None:   
+#             response.append({              
+#                 "name": Appoint.name,
+#                 "roll_no": Appoint.roll_no,
+#                 "blood_group": Appoint.blood_group,
+#                 "weight_kg": Appoint.weight_kg,
+#                 "last_donated_on": Appoint.last_donated_on})         
+#     session.close()
+#     return response
