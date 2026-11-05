@@ -114,36 +114,6 @@ def get_all_donors(blood_group=None):
     session.close()
     return response
 
-def add_donor(roll_no, name, blood_group, weight_kg):
-    roll_no = roll_no.upper()
-    blood_group = blood_group.upper()
-    
-    session = Session(engine)
-    existing = session.query(Donor).filter(Donor.roll_no == roll_no).first()
-    if existing:
-        session.close()
-        raise HTTPException(status_code=400, detail="Roll number already registered.")
-    if weight_kg < 50 or weight_kg > 200:
-        session.close()
-        raise HTTPException(status_code=422, detail="Weight must be between 50kg and 200kg.")
-
-    donor = Donor(roll_no=roll_no, name=name, blood_group=blood_group, weight_kg=weight_kg)
-    session.add(donor)
-    session.commit()
-    session.refresh(donor)
-
-    response = {
-        "id": donor.id,
-        "roll_no": donor.roll_no,
-        "name": donor.name,
-        "blood_group": donor.blood_group,
-        "weight_kg": donor.weight_kg,
-        "last_donated_on": donor.last_donated_on,
-    }
-
-    session.close()
-    return response
-
 
 def book_appoint(roll_no,drive_date,slot):
     drive_date = datetime.strptime(drive_date, "%Y-%m-%d").date()
