@@ -86,6 +86,7 @@ def seed_data():
 
 seed_data()
 
+
 def book_appoint(roll_no,drive_date,slot):
     drive_date = datetime.strptime(drive_date, "%Y-%m-%d").date()
 
