@@ -23,6 +23,12 @@ Update your own row at every check-in.
 | Day 2 | Naidile | endpoints | yes | forntend | yes |
 | Day 2 | Amruta |Endpoints and app.jsx | yes | frontend componet | no |
 
+| Day | Partner | What will you do? | Completed? | What are you going to work on next? | Stuck on? |
+|---|---|---|---|---|---|
+| Day 3 | Supriya | fronted donate debugging| no |  | yes |
+| Day 3 | Naidile | fornted blood bank debugging | no |  | yes |
+| Day 3 | Amruta |testing the backend as the whole | no | frontend debugging as whole | yes|
+
 ## 2. Endpoint tracker
 
 Fill in the method and path from your PRD's endpoint table (suggested answers are pre-filled; change them if your design differs).
