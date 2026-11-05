@@ -1,19 +1,30 @@
 import { useState, useEffect } from "react";
 
-// import GardenList from "./components/GardenList";
+import Donate from "./components/Donate";
 import Drive_desk from "./components/Drive_desk";
-// import AddPlant from "./components/AddP";
+// import Blood_bank from "./components/Blood_bank";
+
 
 const API_URL = "http://127.0.0.1:8001";
 
 function App() {
-  const [plants, setPlants] = useState([]);
-  const [rollNo, setRollNo] = useState(""); 
-
+    const [rollNo, setRollNo] = useState("");
+    const [donors, setDonors] = useState([]);
+    const [donor, setDonor] = useState(null);
+    const [units, setUnits] = useState({});
+ 
   function refreshAll() {
-    fetch(API_URL + "/plants")
+    fetch(API_URL + "/donors")
       .then((res) => res.json())
-      .then((data) => setPlants(data));
+      .then((data) => setDonors(data));
+    fetch(API_URL + "/appointments/status/units")
+      .then((res) => res.json())
+      .then((data) => setUnits(data));
+     if (donor !== null) {
+      fetch(API_URL + "/donors/" + donor.roll_no)
+        .then((res) => res.json())
+        .then((data) => setDonor(data));
+    }
   }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 
 useEffect(() => {
@@ -32,8 +43,9 @@ useEffect(() => {
         onChange={(e) => setRollNo(e.target.value)}
       />
 
-     
-      <Drive_desk rollNo={rollNo} />
+     <Donate API_URL={API_URL} rollNo={rollNo} donor={donor} onDonate={refreshAll} setDonor={setDonor} />
+      <Drive_desk API_URL={API_URL} onMark={refreshAll} />
+      {/* <Blood_bank API_URL={API_URL} donors={donors} units={units} setDonors={setDonors} /> */}
     </div>
   );
 }
