@@ -1,4 +1,17 @@
-import SU_functions
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+import SU_functions 
+
+
+app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #E1 GET all donors
 @app.get("/donors")
@@ -15,3 +28,5 @@ def get_donor(roll_no: str):
 @app.post("/donors")
 def add_donor(roll_no: str, name: str, blood_group: str, weight_kg: int):
     return SU_functions.add_donor(roll_no=roll_no, name=name, blood_group=blood_group, weight_kg=weight_kg)
+
+
