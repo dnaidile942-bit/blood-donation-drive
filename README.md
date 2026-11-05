@@ -14,7 +14,7 @@ Update your own row at every check-in.
 | Day | Partner | What will you do? | Completed? | What are you going to work on next? | Stuck on? |
 |---|---|---|---|---|---|
 | Day 1 | Supriya |E1,E2 |Yes  | E3 | No |
-| Day 1 | Naidile |  |  |  |  |
+| Day 1 | Naidile |E1  | Yes |E2  |No  |
 | Day 1 | Amruta | create database and table and seed_data | yes  | Endpoints | no |
 
 | Day | Partner | What will you do? | Completed? | What are you going to work on next? | Stuck on? |
