@@ -84,37 +84,6 @@ def seed_data():
 
 seed_data()
 
-
-def get_all_donors(blood_group=None):
-    session = Session(engine)
-    
-    if blood_group is None:
-        donors = session.query(Donor).all()
-    else:    
-        blood_group = blood_group.upper()
-        donors = session.query(Donor).filter(Donor.blood_group == blood_group).all()
-        
-
-    response = []
-    for donor in donors:
-        apoint = session.get(Appointment, donor.id)
-        
-        temp_donor = {
-            "id":donor.id,
-            "roll_no":donor.roll_no,
-            "name":donor.name,
-            "blood_group":donor.blood_group,
-            "weight_kg":donor.weight_kg,
-            "last_donated_on":donor.last_donated_on,
-            "status":apoint.status,
-
-        }
-        response.append(temp_donor)
-
-    session.close()
-    return response
-
-
 def book_appoint(roll_no,drive_date,slot):
     drive_date = datetime.strptime(drive_date, "%Y-%m-%d").date()
 
