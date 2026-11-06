@@ -9,7 +9,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 @app.get("/appointments")                                 
-def get_appointments_by_date(drive_date:str):
+def get_appointments_by_date(drive_date):
     response = NA_functions.get_appointments_by_date(drive_date)
     return response 
 @app.get("/appointments/status/units")                                         
@@ -17,8 +17,6 @@ def get_units():
     response = NA_functions.get_units()
     return response
 @app.get("/donors/eligible")                              
-def get_eligible_donors(blood_group:str):
+def get_eligible_donors(blood_group):
     response = NA_functions.get_eligible_donors(blood_group)
     return response
-
-
