@@ -33,22 +33,26 @@ function Drive_desk({API_URL, onMark}) {
             {msg && <p>{msg}</p>}
             <h4>Morning</h4>
 
-            <ol>
+            <ul>
                {appointments.filter((a)=> a.slot ==="morning").map((a)=>
                   (
-                      <li key = {a.id}>
-                      {a.name} ({a.blood_group}) - {a.status}
+                      <li>
+                      <p>Name : {a.name}</p>
+                      <p> blood group : {a.blood_group}</p>
+                      <p>Status :{a.status}</p>
                         <button onClick={()=> mark_apoint(a.id,"donated")}>donated</button>
                         <button onClick={()=> mark_apoint(a.id,"no_show")}>no show</button>
                       </li>
                     ))}                                                
-            </ol>
+            </ul>
             <h4>Afternoon</h4>
             <ol>
                {appointments.filter((a)=> a.slot ==="afternoon").map((a)=>
                   (
-                      <li key = {a.id}>
-                      {a.name} ({a.blood_group}) - {a.status}
+                      <li>
+                        <p>Name : {a.name}</p>
+                        <p> blood group : {a.blood_group}</p>
+                        <p>Status :{a.status}</p>
                         <button onClick={()=> mark_apoint(a.id,"donated")}>donated</button>
                         <button onClick={()=> mark_apoint(a.id,"no_show")}>no show</button>
                       </li>

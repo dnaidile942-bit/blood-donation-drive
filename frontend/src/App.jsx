@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Donate from "./components/Donate";
 import Drive_desk from "./components/Drive_desk";
-// import Blood_bank from "./components/Blood_bank";
+import Blood_bank from "./components/Blood_bank";
 
 
 const API_URL = "http://127.0.0.1:8001";
@@ -45,7 +45,7 @@ useEffect(() => {
 
      <Donate API_URL={API_URL} rollNo={rollNo} donor={donor} onDonate={refreshAll} setDonor={setDonor} />
       <Drive_desk API_URL={API_URL} onMark={refreshAll} />
-      {/* <Blood_bank API_URL={API_URL} donors={donors} units={units} setDonors={setDonors} /> */}
+      <Blood_bank API_URL={API_URL} donors={donors} units={units} setDonors={setDonors} />
     </div>
   );
 }
