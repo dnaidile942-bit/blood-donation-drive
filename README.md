@@ -35,7 +35,8 @@ Fill in the method and path from your PRD's endpoint table (suggested answers ar
 Status: ✅ done · 🟡 in progress · ⬜ not started
 
 | # | What it does | Method + path | Success code | Error code |
-|---|---|---|---|---|---|
+
+
 | E1 | Get all donors, can be filter by blood group |GET /donors |200 OK  |400 Bad Request |
 
 | E2 | Get one donor by roll number, with appointments |GET /donors/{roll_no} |200 OK |404 Not Found | 
