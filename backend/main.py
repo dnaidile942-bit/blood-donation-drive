@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import NA_functions 
@@ -21,3 +20,5 @@ def get_units():
 def get_eligible_donors(blood_group:str):
     response = NA_functions.get_eligible_donors(blood_group)
     return response
+
+
