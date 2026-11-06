@@ -25,8 +25,8 @@ Update your own row at every check-in.
 
 | Day | Partner | What will you do? | Completed? | What are you going to work on next? | Stuck on? |
 |---|---|---|---|---|---|
-| Day 3 | Supriya | fronted donate debugging| no |  | yes |
-| Day 3 | Naidile | fornted blood bank debugging | no |  | yes |
+| Day 3 | Supriya | frontend donate debugging| no |  | yes |
+| Day 3 | Naidile | forntend blood bank debugging | no |  | yes |
 | Day 3 | Amruta |testing the backend as the whole | no | frontend debugging as whole | yes|
 
 ## 2. Endpoint tracker
