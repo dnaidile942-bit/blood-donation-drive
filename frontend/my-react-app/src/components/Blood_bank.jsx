@@ -38,7 +38,7 @@ function Blood_bank({ API_URL, donors, units, setDonors}) {
       <h3>Units collected</h3>
       <ul>
         {GROUPS.map((g) => (
-          <li key={g}>
+          <li>
            {g} = {units[g]}
           </li>
         ))}
@@ -58,8 +58,8 @@ function Blood_bank({ API_URL, donors, units, setDonors}) {
       </select>
       <button onClick={filterDonors}>Filter</button>
       <ul>
-        {eligible.map((d) => (
-        <li key ={d.id}>
+        {donors.map((d) => (
+        <li>
         <p>Name: {d.name}</p>
         <p>Roll NO: {d.roll_no}</p>
         <p>Blood Group: {d.blood_group}</p> 

@@ -8,6 +8,7 @@ const API_URL = "http://127.0.0.1:8001";
 function App() {
     const [rollNo, setRollNo] = useState("");
     const [donors, setDonors] = useState([]);
+const [donor, setDonor] = useState(null);
     const[units , setUnits] = useState([]);
  
   function refreshAll() {
@@ -17,7 +18,14 @@ function App() {
     fetch(API_URL + "/appointments/status/units")
       .then((res) => res.json())
       .then((data) => setUnits(data));
-  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
+     if (donor !== null) {
+      fetch(API_URL + "/donors/" + donor.roll_no)
+        .then((res) => res.json())
+        .then((data) => setDonor(data));
+    }
+  }  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
 useEffect(() => {
   refreshAll();
@@ -39,3 +47,13 @@ useEffect(() => {
 }
 
 export default App;
+
+
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+
+
+
