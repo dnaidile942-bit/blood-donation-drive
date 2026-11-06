@@ -130,4 +130,3 @@ def get_eligible_donors(blood_group):
                 "last_donated_on": donor.last_donated_on})         
     session.close()
     return response
-
