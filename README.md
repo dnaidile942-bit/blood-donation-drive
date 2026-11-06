@@ -37,13 +37,21 @@ Status: ✅ done · 🟡 in progress · ⬜ not started
 | # | What it does | Method + path | Success code | Error code |
 |---|---|---|---|---|---|
 | E1 | Get all donors, can be filter by blood group |GET /donors |200 OK  |400 Bad Request |
+
 | E2 | Get one donor by roll number, with appointments |GET /donors/{roll_no} |200 OK |404 Not Found | 
+
 | E3 | Register a donor:roll no,name,BG and weight |POST /donors |201 Created  |400 Bad Request |
+
 | E4 | Book an appointment:roll no,drive date and slot.it starts as booked | POST/appoinments | | | | 
+
 | E5 | Cancel an appointment | PATCH/appointments/id/cancel |  |  |  |
+
 | E6 | Mark donated or no_show |PATCH/appointments/id/status |  |  |  |
+
 | E7 | Appointments for a date, morning first |GET/appointments |  |  |  |
+
 | E8 | Units collected per blood group |GET/stats{units} |  |  |  |
+
 | E9 | Donors of a blood group who can donate now |GET/donors{eligible}  |  |  |  |
 
 ### Rules checklist (section 4 of the PRD)
