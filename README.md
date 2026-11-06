@@ -31,38 +31,38 @@ Update your own row at every check-in.
 
 | # | What it does | Method + path | Success code | Error code | Status |
 |---|---|---|---|---|---|
-| E1 | Get all donors, can be filtered by blood group | GET /donors?blood_group=O%2B | 200 OK | 400 Bad Request | ⬜ |
-| E2 | Get one donor by roll number, with appointments | GET /donors/{roll_no} | 200 OK | 404 Not Found | ⬜ |
-| E3 | Register a donor: roll no, name, blood group and weight | POST /donors | 201 Created | 400 Bad Request | ⬜ |
-| E4 | Book an appointment: roll no, drive date and slot (starts as booked) | POST /appointments | 201 Created | 404 Not Found (donor doesn't exist) | ⬜ |
-| E5 | Cancel an appointment | PATCH /appointments/{id}/cancel | 200 OK | 404 Not Found | ⬜ |
-| E6 | Mark an appointment donated or no_show | PATCH /appointments/{id}/status | 200 OK | 400 Bad Request (invalid status) | ⬜ |
-| E7 | Appointments for a date, morning first | GET /appointments?date=YYYY-MM-DD | 200 OK | 400 Bad Request (bad date) | ⬜ |
-| E8 | Units collected per blood group | GET /stats | 200 OK | none | ⬜ |
-| E9 | Donors of a blood group who can donate now | GET /donors?eligible=true&blood_group=O%2B | 200 OK | 400 Bad Request | ⬜ |
+| E1 | Get all donors, can be filtered by blood group | GET /donors | 200  | 400  |  |
+| E2 | Get one donor by roll number, with appointments | GET /donors/{roll_no} | 200  | 404  |  |
+| E3 | Register a donor: roll no, name, BG and weight | POST /donors | 201  | 400  |  |
+| E4 | Book appointment: roll no, drive date,slot  | POST /appointments | 201 | 404  |  |
+| E5 | Cancel appointment | PATCH /appointments/id/cancel | 200  | 404 |  |
+| E6 | Mark appointment donated or no_show | PATCH /appointments/{id}/status | 200 | 400 |  |
+| E7 | Appointments for a date, morning first | GET /appointments | 200 | 400  |  |
+| E8 | Units collected per blood group | GET /stats | 200  | |  |
+| E9 | Donors of a blood group who can donate now | GET /donors/eligible| 200 | 400 |  |
 
 ### Rules checklist (section 4 of the PRD)
 
 | Rule | Expected status | Tested in /docs |
 |---|---|---|
-| Roll number already registered | 400 | ⬜ |
-| Booking less than 90 days after last donation | 400 | ⬜ |
-| Donor already has a booked appointment | 400 | ⬜ |
-| Slot already has 10 booked donors | 400 | ⬜ |
-| Cancelling an appointment that is not booked | 400 | ⬜ |
-| Marking an appointment that is not booked, or before its date | 400 | ⬜ |
-| Roll number or appointment id doesn't exist | 404 | ⬜ |
-| Missing or empty field, invalid blood group, invalid slot | 422 | ⬜ |
-| Weight under 50 kg or over 200 kg | 422 | ⬜ |
-| Date not YYYY-MM-DD, or drive date in the past | 422 | ⬜ |
+| Roll number already registered | 400 | yes |
+| Booking less than 90 days after last donation | 400 | yes |
+| Donor already has a booked appointment | 400 | yes |
+| Slot already has 10 booked donors | 400 | no |
+| Cancelling an appointment that is not booked | 400 | yes|
+| Marking an appointment that is not booked, or before its date | 400 | yes|
+| Roll number or appointment id doesn't exist | 404 | yes|
+| Missing or empty field, invalid blood group, invalid slot | 422 | no|
+| Weight under 50 kg or over 200 kg | 422 | yes |
+| Date not YYYY-MM-DD, or drive date in the past | 422 | yes |
 
 ## 3. Frontend tracker
 
 | Part (from section 5 of your PRD) | Uses | Shows the data | Buttons work | Shows API errors | Who |
 |---|---|---|---|---|---|
-| Donate (register form, Show, Book, Cancel) | E2, E3, E4, E5 | ⬜ | ⬜ | ⬜ |  |
-| Drive desk (date picker, Donated / No-show) | E6, E7 | ⬜ | ⬜ | ⬜ |  |
-| Blood bank (units per group, donors, Who can donate?) | E1, E8, E9 | ⬜ | ⬜ | ⬜ |  |
+| Donate (register form, Show, Book, Cancel) | E2, E3, E4, E5 | yes| partialy |  | supriya |
+| Drive desk (date picker, Donated / No-show) | E6, E7 | yes | partialy|  | amruta |
+| Blood bank (units per group, donors, Who can donate?) | E1, E8, E9 | yes | partialy |  | naidile |
 
 ## 4. Done when
 
