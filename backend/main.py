@@ -16,12 +16,12 @@ app.add_middleware(
 
 #E1 GET all donors
 @app.get("/donors")
-def donors(blood_group: str = None):
+def donors(blood_group=None):
     return SU_functions.get_all_donors(blood_group=blood_group)
 
 #E8 GET eligible donors by blood group
 @app.get("/donors/eligible")                              
-def get_eligible_donors(blood_group:str):
+def get_eligible_donors(blood_group):
     response = NA_functions.get_eligible_donors(blood_group)
     return response
 
@@ -33,27 +33,27 @@ def get_donor(roll_no: str):
 
 #E3 Add donor
 @app.post("/donors")
-def add_donor(roll_no: str, name: str, blood_group: str, weight_kg: int):
+def add_donor(roll_no, name, blood_group, weight_kg):
     return SU_functions.add_donor(roll_no=roll_no, name=name, blood_group=blood_group, weight_kg=weight_kg)
 
 #E4 Book appointment
 @app.post("/appointments")
-def book_appoint(roll_no: str, drive_date: str, slot: str):
+def book_appoint(roll_no, drive_date, slot):
     return AM_functions.book_appoint(roll_no.upper(), drive_date, slot.lower())
 
 #E5 Cancel appointment
 @app.patch("/appointments/{id}/cancel")
-def cancel_appoint(id: int):
+def cancel_appoint(id):
     return AM_functions.cancel_appoint(id)
 
 #E6 Mark appointment
 @app.patch("/appointments/{id}/status")
-def mark_appoint(id: int, status: str ):
+def mark_appoint(id, status):
     return AM_functions.mark_appoint(id, status.lower())
 
 #E7 GET appointments by date
 @app.get("/appointments") 
-def get_appointments(drive_date:str):
+def get_appointments(drive_date):
     response = NA_functions.get_appointments_by_date(drive_date)
     return response 
 
@@ -62,4 +62,3 @@ def get_appointments(drive_date:str):
 def get_units():
     response = NA_functions.get_units()
     return response
-
