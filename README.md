@@ -29,21 +29,17 @@ Update your own row at every check-in.
 | Day 3 | Naidile | forntend blood bank debugging | no |  | yes |
 | Day 3 | Amruta |testing the backend as the whole | no | frontend debugging as whole | yes|
 
-## 2. Endpoint tracker
-
-Fill in the method and path from your PRD's endpoint table (suggested answers are pre-filled; change them if your design differs).
-Status: ✅ done · 🟡 in progress · ⬜ not started
-
-**| # | What it does | Method + path | Success code | Error code |**
-| E1 | Get all donors, can be filter by blood group |GET /donors |200 OK  |400 Bad Request |
-| E2 | Get one donor by roll number, with appointments |GET /donors/{roll_no} |200 OK |404 Not Found | 
-| E3 | Register a donor:roll no,name,BG and weight |POST /donors |201 Created  |400 Bad Request |
-| E4 | Book an appointment:roll no,drive date and slot.it starts as booked | POST/appoinments | | | | 
-| E5 | Cancel an appointment | PATCH/appointments/id/cancel |  |  |  |
-| E6 | Mark donated or no_show |PATCH/appointments/id/status |  |  |  |
-| E7 | Appointments for a date, morning first |GET/appointments |  |  |  |
-| E8 | Units collected per blood group |GET/stats{units} |  |  |  |
-| E9 | Donors of a blood group who can donate now |GET/donors{eligible}  |  |  |  |
+| # | What it does | Method + path | Success code | Error code | Status |
+|---|---|---|---|---|---|
+| E1 | Get all donors, can be filtered by blood group | GET /donors?blood_group=O%2B | 200 OK | 400 Bad Request | ⬜ |
+| E2 | Get one donor by roll number, with appointments | GET /donors/{roll_no} | 200 OK | 404 Not Found | ⬜ |
+| E3 | Register a donor: roll no, name, blood group and weight | POST /donors | 201 Created | 400 Bad Request | ⬜ |
+| E4 | Book an appointment: roll no, drive date and slot (starts as booked) | POST /appointments | 201 Created | 404 Not Found (donor doesn't exist) | ⬜ |
+| E5 | Cancel an appointment | PATCH /appointments/{id}/cancel | 200 OK | 404 Not Found | ⬜ |
+| E6 | Mark an appointment donated or no_show | PATCH /appointments/{id}/status | 200 OK | 400 Bad Request (invalid status) | ⬜ |
+| E7 | Appointments for a date, morning first | GET /appointments?date=YYYY-MM-DD | 200 OK | 400 Bad Request (bad date) | ⬜ |
+| E8 | Units collected per blood group | GET /stats | 200 OK | none | ⬜ |
+| E9 | Donors of a blood group who can donate now | GET /donors?eligible=true&blood_group=O%2B | 200 OK | 400 Bad Request | ⬜ |
 
 ### Rules checklist (section 4 of the PRD)
 
