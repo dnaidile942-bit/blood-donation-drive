@@ -73,9 +73,9 @@ def seed_data():
             Appointment(id=4,  donor_id=5,  drive_date=today - timedelta(days=120), slot="morning",   status="donated", booked_on=today - timedelta(days=130)),
             Appointment(id=5,  donor_id=8,  drive_date=today - timedelta(days=200), slot="afternoon", status="donated", booked_on=today - timedelta(days=210)),
             Appointment(id=6,  donor_id=11, drive_date=today - timedelta(days=30),  slot="afternoon", status="booked", booked_on=today),
-            Appointment(id=7,  donor_id=1,  drive_date=today,                       slot="morning",   status="donated",  booked_on=today - timedelta(days=3)),
+            Appointment(id=7,  donor_id=1,  drive_date=today,                       slot="morning",   status="booked",  booked_on=today - timedelta(days=3)),
             Appointment(id=8,  donor_id=3,  drive_date=today + timedelta(days=7),   slot="morning",   status="booked",  booked_on=today),
-            Appointment(id=9,  donor_id=4,  drive_date=today + timedelta(days=7),   slot="afternoon", status="booked",  booked_on=today),
+            Appointment(id=9,  donor_id=4,  drive_date=today,                       slot="afternoon", status="booked",  booked_on=today),
             Appointment(id=10, donor_id=9,  drive_date=today + timedelta(days=14),  slot="morning",   status="cancelled", booked_on=today),
         ]
         session.add_all(appointment_records)
