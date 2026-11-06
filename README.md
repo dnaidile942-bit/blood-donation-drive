@@ -25,8 +25,8 @@ Update your own row at every check-in.
 
 | Day | Partner | What will you do? | Completed? | What are you going to work on next? | Stuck on? |
 |---|---|---|---|---|---|
-| Day 3 | Supriya | fronted donate debugging| no |  | yes |
-| Day 3 | Naidile | fornted blood bank debugging | no |  | yes |
+| Day 3 | Supriya | frontend donate debugging| no |  | yes |
+| Day 3 | Naidile | forntend blood bank debugging | no |  | yes |
 | Day 3 | Amruta |testing the backend as the whole | no | frontend debugging as whole | yes|
 
 ## 2. Endpoint tracker
@@ -34,11 +34,11 @@ Update your own row at every check-in.
 Fill in the method and path from your PRD's endpoint table (suggested answers are pre-filled; change them if your design differs).
 Status: ✅ done · 🟡 in progress · ⬜ not started
 
-| # | What it does | Method + path | request body | Success code | Error code |
+| # | What it does | Method + path | Success code | Error code |
 |---|---|---|---|---|---|
-| E1 | Get all donors, can be filter by blood group |GET /donors |  |  |  |
-| E2 | Get one donor by roll number, with appointments |GET /donors/{roll_no} |  | |  |
-| E3 | Register a donor:roll no,name,BG and weight |POST /donors |  |  |  |  |
+| E1 | Get all donors, can be filter by blood group |GET /donors |200 OK  |400 Bad Request |
+| E2 | Get one donor by roll number, with appointments |GET /donors/{roll_no} |200 OK |404 Not Found | 
+| E3 | Register a donor:roll no,name,BG and weight |POST /donors |201 Created  |400 Bad Request |
 | E4 | Book an appointment:roll no,drive date and slot.it starts as booked | POST/appoinments | | | | 
 | E5 | Cancel an appointment | PATCH/appointments/id/cancel |  |  |  |
 | E6 | Mark donated or no_show |PATCH/appointments/id/status |  |  |  |
