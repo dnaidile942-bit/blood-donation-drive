@@ -30,4 +30,8 @@ Thumbs.db
 .venv/
 node_modules/
 __pycache__/
+<<<<<<< HEAD
+blooddrive.db
+=======
  blooddrive.db
+>>>>>>> dc344f3aa8e7f9b08f9273d929bf57be20bab73d
