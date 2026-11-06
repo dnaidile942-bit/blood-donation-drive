@@ -28,7 +28,7 @@ def get_eligible_donors(blood_group):
 
 #E2 GET DONORS by roll number
 @app.get("/donors/{roll_no}")
-def get_donor(roll_no: str):
+def get_donor(roll_no):
     return SU_functions.get_donor(roll_no.upper())
 
 #E3 Add donor
